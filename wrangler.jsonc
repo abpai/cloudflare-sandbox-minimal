@@ -4,9 +4,9 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "cloudflare-sandbox-minimal",
+	"name": "garage-sandbox-bridge",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-05-06",
+	"compatibility_date": "2026-04-22",
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
@@ -20,9 +20,9 @@
 	"containers": [
 		{
 			"class_name": "Sandbox",
-			"image": "./Dockerfile",
+			"image": "docker.io/cloudflare/sandbox:0.8.11",
 			"instance_type": "lite",
-			"max_instances": 1
+			"max_instances": 100
 		}
 	],
 	"durable_objects": {
@@ -30,15 +30,20 @@
 			{
 				"class_name": "Sandbox",
 				"name": "Sandbox"
+			},
+			{
+				"class_name": "WarmPool",
+				"name": "WarmPool"
 			}
 		]
 	},
 	"migrations": [
 		{
 			"new_sqlite_classes": [
-				"Sandbox"
+				"Sandbox",
+				"WarmPool"
 			],
-			"tag": "v1"
+			"tag": "v2"
 		}
 	],
 	"upload_source_maps": true

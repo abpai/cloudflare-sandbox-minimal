@@ -1,8 +1,10 @@
 import { getSandbox } from '@cloudflare/sandbox';
+import { bridge } from '@cloudflare/sandbox/bridge';
 
 export { Sandbox } from '@cloudflare/sandbox';
+export { WarmPool } from '@cloudflare/sandbox/bridge';
 
-export default {
+export default bridge({
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
@@ -31,4 +33,4 @@ export default {
 
     return new Response('Try /run or /file');
   }
-};
+});
