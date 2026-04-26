@@ -11,7 +11,11 @@
 		"nodejs_compat"
 	],
 	"observability": {
-		"enabled": true
+		"enabled": true,
+		"logs": {
+			"enabled": false,
+			"invocation_logs": true
+		}
 	},
 	"containers": [
 		{
