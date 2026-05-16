@@ -6,7 +6,7 @@ export { WarmPool } from '@cloudflare/sandbox/bridge';
 
 const SANDBOX_BASE_IMAGE = 'docker.io/cloudflare/sandbox:0.8.11';
 const SANDBOX_PACKAGE_VERSION = '0.8.11';
-const CAPABILITY_SANDBOX_ID = 'garagecapabilitiesv2';
+const CAPABILITY_SANDBOX_ID = 'garagecapabilitiesv3';
 
 type SandboxLike = ReturnType<typeof getSandbox>;
 
