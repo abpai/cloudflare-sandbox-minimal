@@ -6,7 +6,7 @@ export { WarmPool } from '@cloudflare/sandbox/bridge';
 
 const SANDBOX_BASE_IMAGE = 'docker.io/cloudflare/sandbox:0.8.11';
 const SANDBOX_PACKAGE_VERSION = '0.8.11';
-const CAPABILITY_SANDBOX_ID = 'garage-capabilities';
+const CAPABILITY_SANDBOX_ID = 'garagecapabilitiesv2';
 
 type SandboxLike = ReturnType<typeof getSandbox>;
 
@@ -125,7 +125,7 @@ const BROWSER_DEMO_PROBE_SCRIPT = String.raw`
 set -euo pipefail
 
 workdir="$(mktemp -d)"
-cat > "\${workdir}/index.html" <<'HTML'
+cat > "__DOLLAR__{workdir}/index.html" <<'HTML'
 <!doctype html>
 <html>
   <head>
@@ -142,13 +142,13 @@ cat > "\${workdir}/index.html" <<'HTML'
 </html>
 HTML
 
-python -m http.server 18080 --directory "\${workdir}" >"\${workdir}/server.log" 2>&1 &
+python -m http.server 18080 --directory "__DOLLAR__{workdir}" >"__DOLLAR__{workdir}/server.log" 2>&1 &
 server_pid="$!"
 cleanup() {
   agent-browser --session garage-capability record stop >/dev/null 2>&1 || true
-  kill "\${server_pid}" >/dev/null 2>&1 || true
+  kill "__DOLLAR__{server_pid}" >/dev/null 2>&1 || true
   agent-browser --session garage-capability close >/dev/null 2>&1 || true
-  rm -rf "\${workdir}"
+  rm -rf "__DOLLAR__{workdir}"
 }
 trap cleanup EXIT
 
@@ -162,13 +162,13 @@ done
 curl -fsS http://127.0.0.1:18080 >/dev/null
 agent-browser --session garage-capability open http://127.0.0.1:18080
 agent-browser --session garage-capability wait --text "Garage capability probe"
-agent-browser --session garage-capability record start "\${workdir}/demo.webm"
+agent-browser --session garage-capability record start "__DOLLAR__{workdir}/demo.webm"
 agent-browser --session garage-capability find testid demo-ready click
 agent-browser --session garage-capability wait --text "clicked"
 agent-browser --session garage-capability record stop
-test -s "\${workdir}/demo.webm"
-printf 'demo_video_bytes=%s\n' "$(wc -c < "\${workdir}/demo.webm")"
-`;
+test -s "__DOLLAR__{workdir}/demo.webm"
+printf 'demo_video_bytes=%s\n' "$(wc -c < "__DOLLAR__{workdir}/demo.webm")"
+`.replaceAll('__DOLLAR__', '$');
 
 function shellArg(value: string): string {
   return `'${value.replace(/'/g, `'\\''`)}'`;
