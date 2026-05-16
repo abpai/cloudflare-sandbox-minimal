@@ -153,7 +153,7 @@ cleanup() {
 trap cleanup EXIT
 
 for _ in $(seq 1 100); do
-  if curl -fsS http://127.0.0.1:18080 >/dev/null; then
+  if curl -fsS http://127.0.0.1:18080 >/dev/null 2>&1; then
     break
   fi
   sleep 0.1
