@@ -24,7 +24,7 @@
 	"containers": [
 		{
 			"class_name": "Sandbox",
-			"image": "./Dockerfile",
+			"image": "registry.cloudflare.com/b53b285f21968101eae7a21b80e47918/garage-sandbox-bridge-sandbox:browser-demo-v2",
 			"instance_type": "lite",
 			"max_instances": 100
 		}

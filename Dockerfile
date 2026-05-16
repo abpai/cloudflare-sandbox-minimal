@@ -5,6 +5,8 @@ ARG GO_VERSION=1.26.3
 ARG UV_VERSION=0.11.14
 ARG AGENT_BROWSER_VERSION=0.27.0
 
+LABEL org.opencontainers.image.description="Garage browser demo sandbox image v1"
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV AGENT_BROWSER_HEADLESS=true
 
