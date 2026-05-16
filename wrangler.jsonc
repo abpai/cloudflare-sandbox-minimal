@@ -25,7 +25,11 @@
 		{
 			"class_name": "Sandbox",
 			"image": "registry.cloudflare.com/b53b285f21968101eae7a21b80e47918/garage-sandbox-bridge-sandbox:browser-demo-v2",
-			"instance_type": "basic",
+			"instance_type": {
+				"vcpu": 1,
+				"memory_mib": 4096,
+				"disk_mb": 8000
+			},
 			"max_instances": 100
 		}
 	],
